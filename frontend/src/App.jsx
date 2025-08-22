@@ -1,10 +1,19 @@
 import React from 'react'
+import Home from './components/frontend/Home'
+
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import About from './components/frontend/About'
 
 const App = () => {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <h1 className="text-4xl font-bold">Welcome to My App</h1>
-    </div>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   )
 }
 
