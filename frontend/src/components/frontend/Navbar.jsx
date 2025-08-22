@@ -2,13 +2,15 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { assets } from "../../assets/assets";
 
+import { IoMdMenu } from "react-icons/io";
+import { IoCloseSharp } from "react-icons/io5";
+
 const Navbar = () => {
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "About Us", path: "/about" },
     { name: "Services", path: "/services" },
     { name: "Our Projects", path: "/projects" },
-    { name: "Blogs", path: "/blogs" },
     { name: "Contact Us", path: "/contact" },
   ];
 
@@ -64,7 +66,7 @@ const Navbar = () => {
                 {link.name}
                 <div
                   className={`${
-                    isScrolled ? "bg-gray-700" : "bg-white"
+                    isScrolled ? "bg-gray-700" : "bg-white "
                   } h-0.5 w-0 group-hover:w-full transition-all duration-300`}
                 />
               </Link>
@@ -84,55 +86,34 @@ const Navbar = () => {
 
         {/* Mobile Menu Button */}
         <div className="flex items-center gap-3 md:hidden">
-          <svg
+          {/* <img onClick={() => setIsMenuOpen(!isMenuOpen)} src={assets.logo} alt=""  className="h-12"/> */}
+          <IoMdMenu
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className={`h-6 w-6 cursor-pointer ${isScrolled ? "invert" : ""}`}
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-          >
-            <line x1="4" y1="6" x2="20" y2="6" />
-            <line x1="4" y1="12" x2="20" y2="12" />
-            <line x1="4" y1="18" x2="20" y2="18" />
-          </svg>
+            className={`h-8 w-8 cursor-pointer ${isScrolled ? "invert" : ""}`}
+          />
         </div>
 
         {/* Mobile Menu */}
         <div
-          className={`fixed top-0 left-0 w-full h-screen bg-white text-base flex flex-col md:hidden items-center justify-center gap-6 font-medium text-gray-800 transition-all duration-500 ${
+          className={`fixed bg-blue-500 top-0 left-0 w-full h-screen flex flex-col md:hidden gap-6 font-medium text-white text-xl transition-all duration-500 ${
             isMenuOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         >
-          <button
-            className="absolute top-4 right-4"
+          <IoCloseSharp
+            className="h-10 w-10 ml-auto mr-5 mt-5"
             onClick={() => setIsMenuOpen(false)}
-          >
-            <svg
-              className="h-6 w-6"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-            >
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
-          </button>
+          />
+          <div className="flex flex-col items-center gap-4 w-full">
+            {navLinks.map((link, i) => (
+              <a key={i} href={link.path} onClick={() => setIsMenuOpen(false)}>
+                {link.name}
+              </a>
+            ))}
 
-          {navLinks.map((link, i) => (
-            <a key={i} href={link.path} onClick={() => setIsMenuOpen(false)}>
-              {link.name}
-            </a>
-          ))}
-
-          <button className="border px-4 py-1 text-sm font-light rounded-full cursor-pointer transition-all">
-            Admin
-          </button>
-
-          <button className="bg-black text-white px-8 py-2.5 rounded-full transition-all duration-500">
-            Admin
-          </button>
+            <button className="border px-4 py-1 text-sm font-light rounded-lg cursor-pointer transition-all">
+              Admin
+            </button>
+          </div>
         </div>
       </nav>
     </div>
